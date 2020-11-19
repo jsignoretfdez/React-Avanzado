@@ -30,7 +30,7 @@ function App({ initiallyLooggedUserId }) {
       <div className="App">
         <Switch>
           <Route path="/" exact>
-            {({ history }) => <TweetsPage history={history} />}
+            <TweetsPage />
           </Route>
           <PrivateRoute path="/tweet" exact>
             <NewTweetPage />

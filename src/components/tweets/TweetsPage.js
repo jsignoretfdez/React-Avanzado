@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import { getLatestTweets } from '../../api/tweets';
 import Layout from '../layout';
 import Tweet from './Tweet';
 
-function TweetsPage({ history }) {
+function TweetsPage() {
   const [tweets, setTweets] = useState(null);
+  const history = useHistory();
 
   useEffect(() => {
     getLatestTweets().then(setTweets);

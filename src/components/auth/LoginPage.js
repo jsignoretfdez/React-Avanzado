@@ -4,20 +4,19 @@ import T from 'prop-types';
 import Button from '../shared/Button';
 import FormField from '../shared/FormField';
 import { login } from '../../api/auth';
+import useForm from '../../hooks/useForm';
 
 import './LoginPage.css';
 
 function LoginPage({ onLogin, history }) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [form, onChange] = useForm({ email: '', password: '' });
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState(null);
 
-  const handleEmailChange = event => setEmail(event.target.value);
-  const handlePasswordChange = event => setPassword(event.target.value);
+  const { email, password } = form;
 
   const handleSubmit = async event => {
-    const crendentials = { email, password };
+    const crendentials = form;
     event.preventDefault();
     setSubmitting(true);
     try {
@@ -45,7 +44,7 @@ function LoginPage({ onLogin, history }) {
           label="phone, email or username"
           className="loginPage-field"
           value={email}
-          onChange={handleEmailChange}
+          onChange={onChange}
         />
         <FormField
           type="password"
@@ -53,7 +52,7 @@ function LoginPage({ onLogin, history }) {
           label="password"
           className="loginPage-field"
           value={password}
-          onChange={handlePasswordChange}
+          onChange={onChange}
         />
         <Button
           type="submit"

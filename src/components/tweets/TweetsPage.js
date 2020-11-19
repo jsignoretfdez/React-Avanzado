@@ -1,27 +1,26 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { getLatestTweets } from '../../api/tweets';
 import Layout from '../layout';
 import Tweet from './Tweet';
 
-class TweetsPage extends React.Component {
-  state = {
-    tweets: null,
-  };
+function TweetsPage({ history }) {
+  const [tweets, setTweets] = useState(null);
 
-  getTweets = async () => {
-    const tweets = await getLatestTweets();
-    this.setState({ tweets });
-  };
+  useEffect(() => {
+    getLatestTweets().then(setTweets);
+    // const fetchGetLatestTweets = async () => {
+    //   const tweets = await getLatestTweets();
+    //   setTweets(tweets);
+    // };
+    // fetchGetLatestTweets();
+    return () => {
+      // cancel request
+      console.log('cancel request');
+    };
+  }, []);
 
-  componentDidMount() {
-    this.getTweets();
-  }
-
-  renderContent = () => {
-    const { history } = this.props;
-    const { tweets } = this.state;
-
+  const renderContent = () => {
     if (!tweets) {
       return null;
     }
@@ -30,13 +29,11 @@ class TweetsPage extends React.Component {
     ));
   };
 
-  render() {
-    return (
-      <Layout title="What's going on...">
-        <div className="tweetsPage">{this.renderContent()}</div>
-      </Layout>
-    );
-  }
+  return (
+    <Layout title="What's going on...">
+      <div className="tweetsPage">{renderContent()}</div>
+    </Layout>
+  );
 }
 
 export default TweetsPage;

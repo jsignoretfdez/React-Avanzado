@@ -1,5 +1,3 @@
-const { set } = require('date-fns');
-
 const storage = {
   get(key) {
     const value = localStorage.getItem(key);

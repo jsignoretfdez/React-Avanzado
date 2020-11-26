@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 
@@ -6,10 +6,11 @@ import { logout } from '../../api/auth';
 import { ReactComponent as Icon } from '../../assets/twitter.svg';
 import './Header.css';
 import Button from '../shared/Button';
-import AuthContext from '../auth/context';
+import { useAuthContext } from '../auth/context';
 
 const Header = ({ className, ...props }) => {
-  const { isLogged, onLogout } = useContext(AuthContext);
+  const { loggedUserId, onLogout } = useAuthContext();
+
   return (
     <header className={classNames('header', className)} {...props}>
       <Link to="/">
@@ -26,7 +27,7 @@ const Header = ({ className, ...props }) => {
         >
           Tweet
         </Button>
-        {isLogged ? (
+        {loggedUserId ? (
           <Button
             className="header-button"
             onClick={() => logout().then(onLogout)}

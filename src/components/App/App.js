@@ -22,7 +22,7 @@ function App({ initiallyLooggedUserId }) {
   return (
     <AuthContextProvider
       value={{
-        isLogged: !!loggedUserId,
+        loggedUserId,
         onLogin: handleLogin,
         onLogout: handleLogout,
       }}
